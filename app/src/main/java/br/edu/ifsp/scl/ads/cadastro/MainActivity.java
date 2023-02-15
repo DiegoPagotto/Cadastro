@@ -50,20 +50,45 @@ public class MainActivity extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Formulario formulario = new Formulario();
-                formulario.setFullName(String.valueOf(fullname.getText()));
-                formulario.setPhoneNumber(String.valueOf(phone.getText()));
-                formulario.setEmail(String.valueOf(email.getText()));
-                formulario.setCity(String.valueOf(city.getText()));
-                formulario.setState(String.valueOf(state.getSelectedItem()));
-                formulario.setEmail(String.valueOf(email.getText()));
-                formulario.setSubscribed(subscribe.isChecked());
-                formulario.setSex(male.isChecked() ? 'M' : 'F');
+                if(!existsErrors()){
+                    Formulario formulario = new Formulario();
+                    formulario.setFullName(String.valueOf(fullname.getText()));
+                    formulario.setPhoneNumber(String.valueOf(phone.getText()));
+                    formulario.setEmail(String.valueOf(email.getText()));
+                    formulario.setCity(String.valueOf(city.getText()));
+                    formulario.setState(String.valueOf(state.getSelectedItem()));
+                    formulario.setEmail(String.valueOf(email.getText()));
+                    formulario.setSubscribed(subscribe.isChecked());
+                    formulario.setSex(male.isChecked() ? 'M' : 'F');
 
-                Toast.makeText(getApplicationContext(), formulario.toString(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), formulario.toString(), Toast.LENGTH_LONG).show();
+                }
+
             }
         });
 
+    }
+
+    private boolean existsErrors() {
+        boolean foundErrors = false;
+        if(fullname.getText().length() < 1){
+            fullname.setError("Preencha antes de continuar");
+            foundErrors = true;
+        }
+        if(phone.getText().length() < 1){
+            phone.setError("Preencha antes de continuar");
+            foundErrors = true;
+        }
+        if(email.getText().length() < 1){
+            email.setError("Preencha antes de continuar");
+            foundErrors = true;
+        }
+        if(city.getText().length() < 1){
+            city.setError("Preencha antes de continuar");
+            foundErrors = true;
+        }
+
+        return foundErrors;
     }
 
     private void bindElementsToView(){
